@@ -160,7 +160,7 @@ app.post('/regist',(req,res)=>{
     console.log("회원가입 시도");
     const {userID,userName, userPassword} = req.body;
 
-    const isIDDuplicated  = connection.query(`SELECT * FROM userid WHERE name = $'{userID}'`);
+    const isIDDuplicated  = connection.query(`SELECT * FROM userid WHERE name === $'{userID}'`);
     console.log('isIDDuplicated = 'isIDDuplicated);
     connection.query(`INSERT INTO userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
 
