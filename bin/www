@@ -192,7 +192,7 @@ app.post('/login', (req, res) => {
         }
         else
         {
-            console.log('패스워드 불일치');
+            console.error('패스워드 불일치',err);
             res.send('Password Not Correct');
         }
         console.log('데이터가 존재합니다.');
