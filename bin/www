@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 
+//바디파서
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 let users = [
     { id: 0, data: "UserData"}              //배열안에 오브젝트
 ];
