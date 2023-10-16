@@ -155,18 +155,28 @@ app.post('/login',(req,res)=>{
     console.log("로그인 시도");
     
 });
-app.post('/regist',(req,res)=>{
-    
-    console.log("회원가입 시도");
-    const {userID,userName, userPassword} = req.body;
-    connection.query(`INSERT INTO userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
+app.post('/regist', (req, res) => {
+    const { userID, userName, userPassword } = req.body;
 
-    
-    if(err) throw err;
-    
-    const dataArray = results;
-
-    console.log('회원가입 테스트 : ',dataArray);
-
+    connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => {
+        if (err) {
+            console.error('중복 아이디 확인 중 오류 발생: ' + err);
+            res.status(500).send('중복 아이디 확인 중 오류 발생');
+        } else {
+            if (results.length > 0) {
+                res.status(400).send('중복된 아이디입니다. 다른 아이디를 선택해주세요.');
+            } else {
+                connection.query(`INSERT INTO userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
+                    if (err) {
+                        console.error('회원가입 오류: ' + err);
+                        res.status(500).send('회원가입 오류');
+                    } else {
+                        const dataArray = results;
+                        console.log('회원가입 결과: ', dataArray);
+                        res.send('회원가입 성공');
+                    }
+                });
+            }
+        }
     });
 });
