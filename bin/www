@@ -159,7 +159,7 @@ app.post('/login', (req, res) => {
             res.status(500).send('로그인 중 오류 발생');
         } else {
             if (results.length === 1) {
-                const userid = results[0];
+                const user = results[0];
                 if (user.userPassword === userPassword) {
                     // 비밀번호가 일치하면 로그인 성공
                     res.send('로그인 성공');
