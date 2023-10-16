@@ -185,9 +185,6 @@ app.post('/login', (req, res) => {
         console.log('입력 패스워드 : ',userPassword);
         if(results[0].userPassword === userPassword)
         {
-            const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
-            console.log(token);
-            res.status(200).json({token});
             console.log("패스워드 일치");
         }
         else
@@ -202,6 +199,9 @@ app.post('/login', (req, res) => {
         // 조건에 맞는 레코드가 존재하지 않을 때
         console.log('데이터가 존재하지 않습니다.');
     }
+    const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
+    console.log(token);
+    res.status(200).json({token});
 });
 });
 
