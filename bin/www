@@ -154,7 +154,7 @@ app.post('/regist',(req,res)=>{
     
     console.log("회원가입 시도");
     connection.query('SELECT * FROM userid',(err,results,fields)=>{
-    console.log("받은 값 : "req.body)
+    console.log("받은 값 : ",req.body)
     if(err) throw err;
     
     const dataArray = results;
