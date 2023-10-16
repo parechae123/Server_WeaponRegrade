@@ -180,7 +180,7 @@ app.post('/login', (req, res) => {
 
     if (results.length > 0) {
         // 조건에 맞는 레코드가 존재할 때
-        console.log('리졸트 유저 패스워드 : ',result.userPassword);
+        console.log('리졸트 유저 패스워드 : ',results.userPassword);
         console.log('입력 패스워드 : ',userPassword);
         if(results.userPassword === userPassword)
         {
