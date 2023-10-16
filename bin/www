@@ -159,6 +159,7 @@ app.post('/regist',(req,res)=>{
     
     console.log("회원가입 시도");
     const {userID,username, password} = req.body;
+    console.log("받은 값 userID : ",userID);
     console.log("받은 값 username : ",username);
     console.log("받은 값 password : ",password);
     connection.query(`INSERT INTO connection.userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
