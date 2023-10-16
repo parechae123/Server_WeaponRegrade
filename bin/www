@@ -183,7 +183,7 @@ app.post('/login', (req, res) => {
         console.log('리졸트 : ',results);
         console.log('리졸트 유저 패스워드 : ',results.userPassword);
         console.log('입력 패스워드 : ',userPassword);
-        if(results.userPassword === userPassword)
+        if(results[0].userPassword === userPassword)
         {
             const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
             console.log(token);
