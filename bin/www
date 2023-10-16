@@ -161,7 +161,7 @@ app.post('/regist',(req,res)=>{
     const {userID,username, password} = req.body;
     console.log("받은 값 username : ",username);
     console.log("받은 값 password : ",password);
-    connection.query(`INSERT INTO RegradeGameDB.userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
+    connection.query(`INSERT INTO connection.userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
 
     
     if(err) throw err;
