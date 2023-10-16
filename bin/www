@@ -193,7 +193,7 @@ app.post('/login', (req, res) => {
         else
         {
             console.log('패스워드 불일치');
-            return res.status(401).json({message : 'password not currect'})
+            return res.status(402).send({'Password Not Correct'})
         }
         console.log('데이터가 존재합니다.');
     } 
