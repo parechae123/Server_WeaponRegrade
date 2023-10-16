@@ -181,7 +181,7 @@ app.post('/login', (req, res) => {
     if (results.length > 0) {
         // 조건에 맞는 레코드가 존재할 때
         console.log('리졸트 : ',results);
-        console.log('리졸트 유저 패스워드 : ',results.userPassword);
+        console.log('리졸트 유저 패스워드 : ',results[0].userPassword);
         console.log('입력 패스워드 : ',userPassword);
         if(results[0].userPassword === userPassword)
         {
@@ -189,6 +189,11 @@ app.post('/login', (req, res) => {
             console.log(token);
             res.status(200).json({token});
             console.log("패스워드 일치");
+        }
+        else
+        {
+            console.log('패스워드 불일치');
+            res.status(100).send('password not currect');
         }
         console.log('데이터가 존재합니다.');
     } 
