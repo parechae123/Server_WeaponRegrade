@@ -134,13 +134,32 @@ app.post('/userdata' , (req ,res) => {
 app.listen(3000, ()=> {
     console.log('server is running at 3000 port');
 });
+const mysql = require('mysql');
+
+//MYSQL 연결 설정
+
+const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+});
 app.post('/login',(req,res)=>{
 
     console.log("로그인 시도");
     
 });
 app.post('/regist',(req,res)=>{
-
-    console.log("회원가입 시도");
     
+    console.log("회원가입 시도");
+    connection.query('SELECT * FROM userid',(err,results,fields)=>{
+
+    if(err) throw err;
+    
+    const dataArray = results;
+
+    console.log('회원가입 테스트 : ',dataArray);
+
+    });
 });
