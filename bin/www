@@ -174,9 +174,6 @@ function verifyToken(req, res, next)        //미들웨어 함수를 사용하�
 }
 
 app.post('/login', (req, res) => {
-    const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
-    console.log(token);
-    res.status(200).json({token});
     const { userID, userPassword } = req.body;
     connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => {
     if (err) throw err;
@@ -188,6 +185,9 @@ app.post('/login', (req, res) => {
         console.log('입력 패스워드 : ',userPassword);
         if(results[0].userPassword === userPassword)
         {
+            const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
+            console.log(token);
+            res.status(200).json({token});
             console.log("패스워드 일치");
         }
         else
