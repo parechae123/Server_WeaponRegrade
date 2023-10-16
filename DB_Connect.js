@@ -35,22 +35,6 @@ connection.query('SELECT * FROM userid',(err,results,fields)=>{
 
 });
 
-app.post('/regist', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-
-    const sql = "INSERT INTO userid (username, password) VALUES (?, ?)";
-    db.query(sql, [username, password], (err, result) => {
-        if (err) {
-            console.error('사용자 정보 삽입 오류: ' + err);
-            res.status(500).send('사용자 정보 삽입 오류');
-        } else {
-            console.log('새로운 사용자가 데이터베이스에 추가되었습니다.');
-            res.send('회원가입 성공');
-        }
-    });
-})
-
 connection.end((err)=>{
     if(err){
         console.error('MySQL 연결 종료 오류 : ' + err.stack);
