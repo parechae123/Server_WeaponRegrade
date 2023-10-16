@@ -159,6 +159,17 @@ app.post('/login', (req, res) => {
             res.status(500).send('로그인 중 오류 발생');
         } else {
             if (results.length === 1) {
+            if(user)
+        {
+            const token = jwt.sign({username: user.username} , secretKey , { expiresIn: '1h' });
+            console.log(token);
+            res.status(200).json({token});
+        }
+        else
+        {
+            res.status(405).json({message : 'login failed'})
+        }
+
                 const userid = results[0];
                 if (user.userPassword === userPassword) {
                     // 비밀번호가 일치하면 로그인 성공
@@ -173,6 +184,7 @@ app.post('/login', (req, res) => {
             }
         }
     });
+    
 });
 app.post('/regist', (req, res) => {
     const { userID, userName, userPassword } = req.body;
