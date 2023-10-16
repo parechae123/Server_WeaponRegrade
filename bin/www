@@ -150,6 +150,28 @@ const connection = mysql.createConnection({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
 });
+
+const secretKey = 'secretkey';              //비밀 키 (반드시 보안);
+
+function verifyToken(req, res, next)        //미들웨어 함수를 사용하여 토큰 검사
+{
+    const token = req.headers.authorization;        //클라이언트에서 해더에 토큰을 넣어서 보낸다.
+
+    if(!token)
+    {
+        return res.status(403).json({message : 'No token provided'});
+    }
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if(err) 
+        {
+            return res.status(401).json({message: 'failed to authenticate token'});
+        }
+        req.decoded == decoded;
+        next();
+    });
+}
+
 app.post('/login', (req, res) => {
     const { userID, userPassword } = req.body;
     connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => {
@@ -161,10 +183,15 @@ app.post('/login', (req, res) => {
         console.log('입력 패스워드 : ',userPassword);
         if(results.userPassword === userPassword)
         {
+            const token = jwt.sign({username: user.username} , secretKey , { expiresIn: '1h' });
+            console.log(token);
+            res.status(200).json({token});
             console.log("패스워드 일치");
         }
         console.log('데이터가 존재합니다.');
-    } else {
+    } 
+    else
+    {
         // 조건에 맞는 레코드가 존재하지 않을 때
         console.log('데이터가 존재하지 않습니다.');
     }
