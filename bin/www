@@ -162,7 +162,8 @@ app.post('/regist',(req,res)=>{
     console.log("받은 값 userID : ",userID);
     console.log("받은 값 userName : ",userName);
     console.log("받은 값 userPassword : ",userPassword);
-    connection.query(`INSERT INTO connection.userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
+    console.log"받은 값 database : ",(connection.database);
+    connection.query(`INSERT INTO userid (userID, userName, userPassword) VALUES ('${userID}', '${userName}', '${userPassword}')`, (err, results, fields) => {
 
     
     if(err) throw err;
