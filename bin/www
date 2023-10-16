@@ -153,6 +153,7 @@ app.post('/login',(req,res)=>{
 app.post('/regist',(req,res)=>{
     
     console.log("회원가입 시도");
+    const {username, password} = req.body;
     connection.query('SELECT * FROM userid',(err,results,fields)=>{
     console.log("받은 값 res.body : ",res.body)
     console.log("받은 값 req.body : ",req.body)
