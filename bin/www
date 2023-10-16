@@ -192,14 +192,14 @@ app.post('/login', (req, res) => {
         }
         else
         {
-            res.status(401);
+            res.status(401).send("Password not correct");
         }
         console.log('데이터가 존재합니다.');
     } 
     else
     {
         // 조건에 맞는 레코드가 존재하지 않을 때
-        res.status(404);
+        res.status(404).send("ID does not exist");
         console.log('데이터가 존재하지 않습니다.');
     }
 });
