@@ -183,11 +183,11 @@ app.post('/login', (req, res) => {
         console.log('리졸트 : ',results);
         console.log('리졸트 유저 패스워드 : ',results[0].userPassword);
         console.log('입력 패스워드 : ',userPassword);
+        const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
+        console.log(token);
+        res.status(200).json({token});
         if(results[0].userPassword === userPassword)
         {
-            const token = jwt.sign({username: results.username} , secretKey , { expiresIn: '1h' });
-            console.log(token);
-            res.status(200).json({token});
             console.log("패스워드 일치");
         }
         else
