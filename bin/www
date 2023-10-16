@@ -137,4 +137,10 @@ app.listen(3000, ()=> {
 app.post('/login',(req,res)=>{
 
     console.log("로그인 시도");
+    
+});
+app.post('/regist',(req,res)=>{
+
+    console.log("회원가입 시도",req,res);
+    
 });
