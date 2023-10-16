@@ -153,17 +153,23 @@ const connection = mysql.createConnection({
 app.post('/login', (req, res) => {
     const { userID, userPassword } = req.body;
 
-    connection.query('SELECT * FROM userid WHERE userID = ? AND userPassword = ?', [userID, userPassword], (err, results, fields) => {
+    connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => {
         if (err) {
             console.error('로그인 중 오류 발생: ' + err);
             res.status(500).send('로그인 중 오류 발생');
         } else {
             if (results.length === 1) {
-                // 비밀번호가 일치하면 로그인 성공
-                res.send('로그인 성공');
+                const userid = results[0];
+                if (user.userPassword === userPassword) {
+                    // 비밀번호가 일치하면 로그인 성공
+                    res.send('로그인 성공');
+                } else {
+                    // 비밀번호 불일치
+                    res.status(401).send('비밀번호가 일치하지 않습니다.');
+                }
             } else {
-                // 사용자를 찾을 수 없거나 비밀번호 불일치
-                res.status(401).send('사용자를 찾을 수 없거나 비밀번호가 일치하지 않습니다.');
+                // 사용자를 찾을 수 없음
+                res.status(404).send('사용자를 찾을 수 없습니다.');
             }
         }
     });
