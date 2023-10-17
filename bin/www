@@ -209,7 +209,14 @@ app.post('/loginSuccess',(req,res)=>
     const userID = req.body;
     connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => 
     {
-        res.send(results[0]);
+        if(results !== null)
+        {
+            res.status(200).json(results[0]);
+        }
+        else
+        {
+            console.log('왜 없지?');
+        }
     });
 });
 
