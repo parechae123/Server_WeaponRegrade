@@ -204,6 +204,15 @@ app.post('/login', (req, res) => {
     }
 });
 });
+app.post('/loginSuccess',(req,res)=>
+{
+    const userID = req.body;
+    connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => 
+    {
+        res.send(results[0]);
+    });
+});
+
 
 app.post('/regist', (req, res) => {
     const { userID, userName, userPassword } = req.body;
