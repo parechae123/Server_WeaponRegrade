@@ -78,7 +78,6 @@ function verifyToken(req, res, next)        //미들웨어 함수를 사용하�
 app.post('/login', (req, res) => {
     const { userID, userPassword } = req.body;
 
-    console.log(" => : " + req.body.userID);
     connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => {
     if (err) throw err;
 
@@ -110,10 +109,10 @@ app.post('/login', (req, res) => {
 });
 app.post('/loginSuccess',(req,res)=>
 {
-    const userID = req.body;
-    connection.query(`SELECT * FROM userid WHERE userID = '${userID}'`, (err, results, fields) => 
+    connection.query(`SELECT * FROM userid WHERE userID = '${req.body.userID}'`, (err, results, fields) => 
     {
         console.log('있긴헌디~?');
+        console.log(results[0]);
         res.status(200).json(results[0]);
     });
 });
