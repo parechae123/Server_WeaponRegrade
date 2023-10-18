@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "body-parser": "^1.20.2",
     "chokidar": "^3.5.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -16,6 +17,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "nunjucks": "^3.2.3",
+    "package.json": "^2.0.1",
     "pug": "^3.0.2"
   },
   "description": "Express로 구현된 Node.js 백엔드 어플리케이션 템플릿입니다.\r ## 🖇️ 준비 및 확인사항",
