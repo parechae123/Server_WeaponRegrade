@@ -134,13 +134,10 @@ app.post('/invenInfo',(req,res)=>
                 {
                     connection.query(`SELECT * FROM PlayerInventory WHERE userID = '${userID}'`, (err, SELECTresults, fields) => 
                     {
-                        console.log('인벤은 찾음');
+                        console.log('인벤 생성');
                         console.log("레큐바디",userID);
-                        if(results.length > 0)
-                        {
-                            res.status(200).json(SELECTresults[0]);
-                            console.log('인벤 가져옴 결과: ', SELECTresults[0]);
-                        }
+                        console.log('생성, 인벤 가져옴 결과: ', SELECTresults[0]);
+                        res.status(200).json(SELECTresults[0]);
                     });
                 }
             });
