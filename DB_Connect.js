@@ -116,6 +116,19 @@ app.post('/loginSuccess',(req,res)=>
         res.status(200).json(results[0]);
     });
 });
+app.post('/invenInfo',(req,res)=>
+{
+    connection.query(`SELECT * FROM PlayerInventory WHERE userID = '${req.body.userID}'`, (err, results, fields) => 
+    {
+        console.log('인벤은 찾음');
+
+        if(results > 0)
+        {
+            console.log(results[0]);
+            res.status(200).json(results[0]);
+        }
+    });
+});
 
 
 app.post('/regist', (req, res) => {
