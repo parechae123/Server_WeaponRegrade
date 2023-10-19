@@ -118,14 +118,32 @@ app.post('/loginSuccess',(req,res)=>
 });
 app.post('/invenInfo',(req,res)=>
 {
-    connection.query(`SELECT * FROM PlayerInventory WHERE userID = '${req.body.userID}'`, (err, results, fields) => 
+    const {userID} = req.body;
+    connection.query(`SELECT * FROM PlayerInventory WHERE userID = '${userID}'`, (err, results, fields) => 
     {
         console.log('인벤은 찾음');
-
-        if(results > 0)
+        console.log("레큐바디",userID);
+        if(results.length > 0)
         {
-            console.log(results[0]);
             res.status(200).json(results[0]);
+            console.log('인벤 가져옴 결과: ', results[0]);
+        }
+        else
+        {
+            connection.query(`INSERT INTO PlayerInventory (userID) VALUES ('${req.body.userID}')`, (err, resultsInsert, fields) => {
+                {
+                    connection.query(`SELECT * FROM PlayerInventory WHERE userID = '${userID}'`, (err, SELECTresults, fields) => 
+                    {
+                        console.log('인벤은 찾음');
+                        console.log("레큐바디",userID);
+                        if(results.length > 0)
+                        {
+                            res.status(200).json(SELECTresults[0]);
+                            console.log('인벤 가져옴 결과: ', SELECTresults[0]);
+                        }
+                    });
+                }
+            });
         }
     });
 });
