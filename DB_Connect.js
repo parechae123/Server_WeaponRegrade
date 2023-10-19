@@ -116,6 +116,7 @@ app.post('/loginSuccess',(req,res)=>
         res.status(200).json(results[0]);
     });
 });
+
 app.post('/invenInfo',(req,res)=>
 {
     const {userID} = req.body;
@@ -138,6 +139,7 @@ app.post('/invenInfo',(req,res)=>
                         console.log("레큐바디",userID);
                         console.log('생성, 인벤 가져옴 결과: ', SELECTresults[0]);
                         res.status(200).json(SELECTresults[0]);
+
                     });
                 }
             });
@@ -177,4 +179,22 @@ app.post('/regist', (req, res) => {
             }
         }
     });
+});
+app.post('/UpdateInven', (req,res)=>{
+
+    const {userID, money, maxRegrade} = req.body;
+    
+    connection.query(`UPDATE PlayerInventory SET money = money + ${money}, maxRegrade = maxRegrade + ${maxRegrade} WHERE userID = '${userID}'`,(err, results, fields) => {
+    if (err)
+        {
+        console.error('정보 업로드 실패: ' + err);
+            res.status(500).send('정보 업로드 오류');
+        }
+        else
+        {
+            console.log('정보 업로드 결과 : ', results);
+            res.status(200).send('정보 업로드 성공')
+        }
+    }
+    );
 });
