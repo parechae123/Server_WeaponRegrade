@@ -138,6 +138,20 @@ app.post('/invenInfo',(req,res)=>
                         console.log("레큐바디",userID);
                         if(results.length > 0)
                         {
+                            connection.query(`UPDATE PlayerInventory SET money = money + ${money}, maxRegrade = maxRegrade + ${maxRegrade} WHERE userID = '${req.body.userID}'`,(err, results, fields) => {
+                                if (err)
+                                {
+                                    console.error('정보 업로드 실패: ' + err);
+                                    res.status(500).send('정보 업로드 오류');
+                                }
+                                else
+                                {
+                                    console.log('정보 업로드 결과 : ', results);
+                                    res.status(200).send('정보 업로드 성공')
+                                }
+                              }
+                            );
+                            
                             res.status(200).json(SELECTresults[0]);
                             console.log('인벤 가져옴 결과: ', SELECTresults[0]);
                         }
@@ -147,7 +161,6 @@ app.post('/invenInfo',(req,res)=>
         }
     });
 });
-
 
 app.post('/regist', (req, res) => {
     const { userID, userName, userPassword } = req.body;
