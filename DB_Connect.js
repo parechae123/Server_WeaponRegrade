@@ -198,3 +198,18 @@ app.post('/UpdateInven', (req,res)=>{
     }
     );
 });
+app.post(`/getItemTable`, (req,res)=>{
+    connection.query("SELECT * FROM ItemTable",(err, results, fields) => {
+    if (err)
+        {
+        console.error('정보 업로드 실패: ' + err);
+            res.status(500).send('아이템 테이블 전송 오류');
+        }
+        else
+        {
+            console.log('정보 업로드 결과 : ', results);
+            res.status(200).json({results});
+        }
+    }
+    );
+});
