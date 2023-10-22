@@ -213,3 +213,19 @@ app.post(`/getItemTable`, (req,res)=>{
     }
     );
 });
+
+app.post(`/getItemInfo`, (req,res)=>{               //인 게임에서 아이템 코드를 확인하고 인 게임 내 표시되야할 정보들을 표시 (적용은 구현 필요)
+    connection.query(`SELECT itemName, sellValue, buyValue, regradePercent, regradeValue FROM ItemTable WHERE codeName = '${codeName}'`,(err, results, fields) =>{
+        if(err)
+        {
+            console.error('해당하지 않는 코드 네임: ' + err);
+            res.status(500).send('코드 네임 비일치');
+        }
+        else
+        {
+            console.log('코드에 맞는 정보 불러오기 성공')
+            res.status(200).send('코드 네임 일치');
+        }
+    }
+    );
+}); 
