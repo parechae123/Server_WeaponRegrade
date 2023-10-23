@@ -180,24 +180,21 @@ app.post('/regist', (req, res) => {
         }
     });
 });
-app.post('/UpdateInven', (req,res)=>{
 
-    const {userID, money, maxRegrade} = req.body;
+app.post('/updateInven', (req, res) => {
+    const { userID, money, maxRegrade, WeaponIndex } = req.body;
     
-    connection.query(`UPDATE PlayerInventory SET money = money + ${money}, maxRegrade = maxRegrade + ${maxRegrade} WHERE userID = '${userID}'`,(err, results, fields) => {
-    if (err)
-        {
-        console.error('정보 업로드 실패: ' + err);
+    connection.query(`UPDATE PlayerInventory SET money = ${money}, maxRegrade = ${maxRegrade}, WeaponIndex = ${WeaponIndex} WHERE userID = '${userID}'`, (err, results, fields) => {
+        if (err) {
+            console.error('정보 업로드 실패: ' + err);
             res.status(500).send('정보 업로드 오류');
-        }
-        else
-        {
+        } else {
             console.log('정보 업로드 결과 : ', results);
             res.status(200).send('정보 업로드 성공')
         }
-    }
-    );
+    });
 });
+
 app.post(`/getItemTable`, (req,res)=>{
     connection.query("SELECT * FROM ItemTable",(err, results, fields) => {
     if (err)
