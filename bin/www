@@ -1,11 +1,11 @@
+require('dotenv').config();
 const express = require('express');
+const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const app = express();
-
-//바디파서
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json());                   //json을 사용하겠다.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 let users = [
     { id: 0, data: "UserData"}              //배열안에 오브젝트
@@ -294,7 +294,7 @@ app.post('/updateInven', (req, res) => {
 });
 
 app.post(`/getItemTable`, (req,res)=>{
-    connection.query("SELECT * FROM ItemTable",(err, results, fields) => {
+    connection.query("SELECT * FROM ItemTable WHERE",(err, results, fields) => {
     if (err)
         {
         console.error('정보 업로드 실패: ' + err);
