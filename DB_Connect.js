@@ -186,17 +186,17 @@ app.post('/updateInven', (req, res) => {
     
     connection.query(`UPDATE PlayerInventory SET money = ${money}, maxRegrade = ${maxRegrade}, WeaponIndex = ${WeaponIndex} WHERE userID = '${userID}'`, (err, results, fields) => {
         if (err) {
-            console.error('정보 업로드 실패: ' + err);
+            console.error('정보 업데이트 실패: ' + err);
             res.status(500).send('정보 업로드 오류');
         } else {
-            console.log('정보 업로드 결과 : ', results);
+            console.log('정보 업데이트 결과 : ', results);
             res.status(200).send('정보 업로드 성공')
         }
     });
 });
 
 app.post(`/getItemTable`, (req,res)=>{
-    connection.query("SELECT * FROM ItemTable WHERE",(err, results, fields) => {
+    connection.query("SELECT * FROM ItemTable",(err, results, fields) => {
     if (err)
         {
         console.error('정보 업로드 실패: ' + err);
